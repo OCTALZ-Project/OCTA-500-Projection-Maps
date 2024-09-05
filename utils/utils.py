@@ -9,6 +9,8 @@ from sklearn.metrics import (accuracy_score, confusion_matrix,
                              precision_score, recall_score)
 import torch
 from torchvision import transforms
+from datetime import datetime
+from pathlib import Path
 
 def squeeze_projection_maps(images_directory, patient_id, projection_map_headers_dir):
     projections = []
@@ -243,10 +245,6 @@ def plot_training_results(log_data):
         plt.tight_layout()
         plt.show()
 
-
-        
-
-
 def print_results(y_true, y_pred, dataset):
     print("Accuracy: {:.2f}".format(accuracy_score(y_true, y_pred)))
     print("Precision: {:.2f}".format(precision_score(y_true, y_pred, average='macro')))
@@ -265,3 +263,13 @@ def plot_all_folds_results(log_data, dataset):
         y_pred = log_data[fold]['test_log']['y_pred'][0]
 
         print_results(y_true, y_pred, dataset)
+        
+def save_model(CONFIG, MODEL_CONFIG, session_dir, model, i):
+    path = fr'out/{session_dir}'
+    save_model_dir = Path(path) / 'saved_models'
+    save_model_dir.mkdir(parents=True, exist_ok=True) 
+    
+    save_model_path = fr"{save_model_dir}/{str(MODEL_CONFIG.model.model)}_{CONFIG.OCTADataset.num_classes}_classes_{CONFIG.k_fold_train.num_epochs}_epoch(s)_fold_{i+1}.pth"
+    torch.save(model.state_dict(), save_model_path)
+    print(f"Model saved to {save_model_path}")
+    

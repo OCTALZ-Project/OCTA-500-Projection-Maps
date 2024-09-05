@@ -3,7 +3,6 @@ seed=42
 
 logger=dict(
     enable=True,
-    log_dir="out/logs"
 )
 
 transform=dict(
@@ -32,7 +31,6 @@ k_fold_train=dict(
 
 model_config="configs/resnet50.py"
 save_model=True
-save_model_path="out/saved_models"
 
 train=dict(
     model=dict(),

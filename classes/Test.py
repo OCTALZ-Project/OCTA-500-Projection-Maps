@@ -1,7 +1,4 @@
 import torch
-from classes.Config import Config
-
-CONFIG = Config("configs/config.py")
 
 def test(model, test_loader, device, log_test):
     model.eval()

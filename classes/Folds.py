@@ -48,12 +48,12 @@ class Folds:
         fold_files = os.listdir(fold_files_directory_path)
 
         folds_dict = {}
-        for i in range(1, len(fold_files) // 3):  # Assuming consistent naming convention
+        for i in range(len(fold_files) // 3):  # Assuming consistent naming convention
             train_df = pd.read_csv(os.path.join(fold_files_directory_path, f'train_fold_{i}.csv'))
             val_df = pd.read_csv(os.path.join(fold_files_directory_path, f'val_fold_{i}.csv'))
             test_df = pd.read_csv(os.path.join(fold_files_directory_path, f'test_fold_{i}.csv'))
 
-            folds_dict[f'fold_{i-1}'] = {  # Adjust index to start from 0
+            folds_dict[f'fold_{i}'] = {  # Adjust index to start from 0
                 'train': self._load_fold_indices(train_df),
                 'val': self._load_fold_indices(val_df),
                 'test': self._load_fold_indices(test_df)

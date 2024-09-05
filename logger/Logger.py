@@ -1,15 +1,10 @@
-import os
 import csv
-from datetime import datetime
 from pathlib import Path
-from classes.Config import Config
-
-CONFIG = Config("configs/config.py")
 
 class Logger:
-    def __init__(self):
-        timestamp = datetime.now().strftime("%d-%m-%Y_%H-%M-%S")
-        self.log_dir = Path(CONFIG.logger.log_dir) / timestamp
+    def __init__(self, session_dir):
+        path = fr'out/{session_dir}'
+        self.log_dir = Path(path) / 'logs'
         self.log_dir.mkdir(parents=True, exist_ok=True)
         
     def create_fold_dir(self, fold_number):
